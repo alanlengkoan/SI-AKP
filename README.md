@@ -1,2 +1,2 @@
 # SI-AKP
-sistem informasi administrasi kepegawaian Berbasis Web
+Sistem Informasi Administrasi Kepegawaian Berbasis Web
