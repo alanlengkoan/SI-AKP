@@ -14,6 +14,9 @@
 
 namespace App\Libraries;
 
+use Diglactic\Breadcrumbs\Breadcrumbs;
+use Illuminate\Support\Facades\Route;
+
 class Template
 {
     // untuk load view
@@ -21,6 +24,8 @@ class Template
     {
         // untuk judul halaman
         $data['title'] = $title;
+        // untuk breadcrumb
+        $data['breadcrumb'] = Breadcrumbs::render(Route::currentRouteName());
 
         return view("{$role}/{$module}/{$view}", $data);
     }

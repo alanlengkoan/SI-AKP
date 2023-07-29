@@ -77,5 +77,11 @@ $(".inputNumber").inputFilter(function (value) {
     return /^-?\d*$/.test(value);
 });
 
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 // untuk debugin console log
 const log = (arg) => console.log(arg);

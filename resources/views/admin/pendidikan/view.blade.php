@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-striped table-bordered" id="tabel-pangkat-dt" style="width: 100%;">
+                <table class="table table-striped table-bordered" id="tabel-pendidikan-dt" style="width: 100%;">
                 </table>
             </div>
         </div>
@@ -35,9 +35,9 @@
             <div class="modal-header">
                 <h4 class="modal-title"><span id="judul-add-upd"></span> <?= $title ?></h4>
             </div>
-            <form id="form-add-upd" action="{{ route('admin.pangkat.save') }}" method="POST">
+            <form id="form-add-upd" action="{{ route('admin.pendidikan.save') }}" method="POST">
                 <!-- begin:: id -->
-                <input type="hidden" name="id_pangkat" id="id_pangkat" />
+                <input type="hidden" name="id_pendidikan" id="id_pendidikan" />
                 <!-- end:: id -->
 
                 <div class="modal-body">
@@ -49,7 +49,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Nama&nbsp;*</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukkan nama pangkat" />
+                                <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukkan nama pendidikan" />
                                 <span class="errorInput"></span>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
     var table;
 
     let untukTabel = function() {
-        table = $('#tabel-pangkat-dt').DataTable({
+        table = $('#tabel-pendidikan-dt').DataTable({
             serverSide: true,
             responsive: true,
             processing: true,
@@ -89,7 +89,7 @@
                 emptyTable: "Tak ada data yang tersedia pada tabel ini.",
                 processing: "Data sedang diproses...",
             },
-            ajax: "{{ route('admin.pangkat.get_data_dt') }}",
+            ajax: "{{ route('admin.pendidikan.get_data_dt') }}",
             columns: [{
                     title: 'No.',
                     data: 'DT_RowIndex',
@@ -167,7 +167,7 @@
         $(document).on('click', '#add', function(e) {
             e.preventDefault();
             $('#judul-add-upd').text('Tambah');
-            $('#id_pangkat').removeAttr('value');
+            $('#id_pendidikan').removeAttr('value');
 
             $('#form-add-upd').parsley().reset();
             $('#form-add-upd')[0].reset();
@@ -180,7 +180,7 @@
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: "{{ route('admin.pangkat.show') }}",
+                url: "{{ route('admin.pendidikan.show') }}",
                 data: {
                     id: ini.data('id')
                 },
@@ -196,7 +196,7 @@
                     $('#form-loading').empty();
                     $('#form-show').removeAttr('style');
 
-                    $('#id_pangkat').val(response.id_pangkat);
+                    $('#id_pendidikan').val(response.id_pendidikan);
                     $('#nama').val(response.nama);
 
                     ini.removeAttr('disabled');
@@ -220,7 +220,7 @@
                 if (del) {
                     $.ajax({
                         type: "post",
-                        url: "{{ route('admin.pangkat.del') }}",
+                        url: "{{ route('admin.pendidikan.del') }}",
                         dataType: 'json',
                         data: {
                             id: ini.data('id'),

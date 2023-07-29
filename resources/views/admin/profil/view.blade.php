@@ -9,185 +9,165 @@
 
 <!-- begin:: content -->
 @section('content')
-<div class="pcoded-main-container">
-    <div class="pcoded-content">
-        <!-- begin:: breadcrumb -->
-        <div class="page-header">
-            <div class="page-block">
-                <div class="row align-items-center">
-                    <div class="col-md-12">
-                        <div class="page-header-title">
-                            <h5 class="m-b-10">{{ $title }}</h5>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <ul class="nav nav-pills bg-white" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active text-uppercase" id="foto-tab" data-toggle="tab" href="#foto" role="tab" aria-controls="foto" aria-selected="true">
+                            Foto
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase" id="akun-tab" data-toggle="tab" href="#akun" role="tab" aria-controls="akun" aria-selected="true">
+                            Akun
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase" id="keamanan-tab" data-toggle="tab" href="#keamanan" role="tab" aria-controls="keamanan" aria-selected="true">
+                            Keamanan
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="tab-content" id="myTabContent">
+            <!-- begin:: foto -->
+            <div class="tab-pane fade show active" id="foto" role="tabpanel" aria-labelledby="foto-tab">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Foto {{ $title }}</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="form-foto" action="{{ route('admin.profil.save_picture') }}" method="POST">
+                                    <div class="row">
+                                        <div class="col-lg-6 align-self-center">
+                                            <input type="file" name="i_foto" id="i_foto" />
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <img src="{{ ($user->foto === null) ? '//placehold.co/150' : asset_upload('picture/'.$user->foto) }}" class="img-fluid mx-auto d-block" id="lihat-gambar" alt="Profil" width="200" />
+                                            <br>
+                                            <div class="text-center">
+                                                <button type="submit" id="save-foto" class="btn btn-primary btn-sm"><i class="fa fa-save"></i>&nbsp;Simpan</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        {{ Breadcrumbs::render('admin.profil') }}
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- end:: breadcrumb -->
-        <!-- begin:: body -->
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <ul class="nav nav-pills bg-white" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active text-uppercase" id="foto-tab" data-toggle="tab" href="#foto" role="tab" aria-controls="foto" aria-selected="true">
-                                    Foto
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-uppercase" id="akun-tab" data-toggle="tab" href="#akun" role="tab" aria-controls="akun" aria-selected="true">
-                                    Akun
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-uppercase" id="keamanan-tab" data-toggle="tab" href="#keamanan" role="tab" aria-controls="keamanan" aria-selected="true">
-                                    Keamanan
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="tab-content" id="myTabContent">
-                    <!-- begin:: foto -->
-                    <div class="tab-pane fade show active" id="foto" role="tabpanel" aria-labelledby="foto-tab">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h5>Foto {{ $title }}</h5>
+            <!-- end:: foto -->
+            <!-- begin:: akun -->
+            <div class="tab-pane fade" id="akun" role="tabpanel" aria-labelledby="akun-tab">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body d-flex align-items-center justify-content-between">
+                                <h5 class="mb-0">Akun {{ $title }}</h5>
+                                <button type="button" class="btn btn-primary btn-sm rounded m-0 float-right" data-toggle="collapse" data-target=".pro-det-edit" aria-expanded="false" aria-controls="pro-det-edit-1 pro-det-edit-2">
+                                    <i class="feather icon-edit"></i>
+                                </button>
+                            </div>
+                            <div class="card-body border-top pro-det-edit collapse show" id="pro-det-edit-1">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label font-weight-bolder">Nama</label>
+                                    <div class="col-sm-9">
+                                        {{ $user->nama }}
                                     </div>
-                                    <div class="card-body">
-                                        <form id="form-foto" action="{{ route('admin.profil.save_picture') }}" method="POST">
-                                            <div class="row">
-                                                <div class="col-lg-6 align-self-center">
-                                                    <input type="file" name="i_foto" id="i_foto" />
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <img src="{{ ($user->foto === null) ? '//placehold.co/150' : asset_upload('picture/'.$user->foto) }}" class="img-fluid mx-auto d-block" id="lihat-gambar" alt="Profil" width="200" />
-                                                    <br>
-                                                    <div class="text-center">
-                                                        <button type="submit" id="save-foto" class="btn btn-primary btn-sm"><i class="fa fa-save"></i>&nbsp;Simpan</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label font-weight-bolder">E-Mail</label>
+                                    <div class="col-sm-9">
+                                        {{ $user->email }}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label font-weight-bolder">Username</label>
+                                    <div class="col-sm-9">
+                                        {{ $user->username }}
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <!-- end:: foto -->
-                    <!-- begin:: akun -->
-                    <div class="tab-pane fade" id="akun" role="tabpanel" aria-labelledby="akun-tab">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="card">
-                                    <div class="card-body d-flex align-items-center justify-content-between">
-                                        <h5 class="mb-0">Akun {{ $title }}</h5>
-                                        <button type="button" class="btn btn-primary btn-sm rounded m-0 float-right" data-toggle="collapse" data-target=".pro-det-edit" aria-expanded="false" aria-controls="pro-det-edit-1 pro-det-edit-2">
-                                            <i class="feather icon-edit"></i>
-                                        </button>
-                                    </div>
-                                    <div class="card-body border-top pro-det-edit collapse show" id="pro-det-edit-1">
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label font-weight-bolder">Nama</label>
-                                            <div class="col-sm-9">
-                                                {{ $user->nama }}
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label font-weight-bolder">E-Mail</label>
-                                            <div class="col-sm-9">
-                                                {{ $user->email }}
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label font-weight-bolder">Username</label>
-                                            <div class="col-sm-9">
-                                                {{ $user->username }}
-                                            </div>
+                            <div class="card-body border-top pro-det-edit collapse " id="pro-det-edit-2">
+                                <form id="form-akun" action="{{ route('admin.profil.save_account') }}" method="POST">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label font-weight-bolder">Nama&nbsp;*</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="i_nama" id="i_nama" value="{{ $user->nama }}" placeholder="Masukkan nama Anda" />
                                         </div>
                                     </div>
-                                    <div class="card-body border-top pro-det-edit collapse " id="pro-det-edit-2">
-                                        <form id="form-akun" action="{{ route('admin.profil.save_account') }}" method="POST">
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label font-weight-bolder">Nama&nbsp;*</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="i_nama" id="i_nama" value="{{ $user->nama }}" placeholder="Masukkan nama Anda" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label font-weight-bolder">E-Mail&nbsp;*</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="i_email" id="i_email" value="{{ $user->email }}" placeholder="Masukkan e-mail Anda" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label font-weight-bolder">Username&nbsp;*</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="i_username" id="i_username" value="{{ $user->username }}" placeholder="Masukkan username Anda" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label"></label>
-                                                <div class="col-sm-9">
-                                                    <button type="submit" id="save-akun" class="btn btn-primary btn-sm"><i class="fa fa-save"></i>&nbsp;Simpan</button>
-                                                </div>
-                                            </div>
-                                        </form>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label font-weight-bolder">E-Mail&nbsp;*</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="i_email" id="i_email" value="{{ $user->email }}" placeholder="Masukkan e-mail Anda" />
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label font-weight-bolder">Username&nbsp;*</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="i_username" id="i_username" value="{{ $user->username }}" placeholder="Masukkan username Anda" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label"></label>
+                                        <div class="col-sm-9">
+                                            <button type="submit" id="save-akun" class="btn btn-primary btn-sm"><i class="fa fa-save"></i>&nbsp;Simpan</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    <!-- end:: akun -->
-                    <!-- begin:: keamanan -->
-                    <div class="tab-pane fade" id="keamanan" role="tabpanel" aria-labelledby="keamanan-tab">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h5>Keamanan {{ $title }}</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <form id="form-keamanan" action="{{ route('admin.profil.save_security') }}" method="POST">
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label font-weight-bolder">Password Lama&nbsp;*</label>
-                                                <div class="col-sm-9">
-                                                    <input type="password" class="form-control" name="i_pass_lama" id="i_pass_lama" placeholder="Masukkan password lama Anda" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label font-weight-bolder">Password Baru&nbsp;*</label>
-                                                <div class="col-sm-9">
-                                                    <input type="password" class="form-control" name="i_pass_baru" id="i_pass_baru" placeholder="Masukkan password baru Anda" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label font-weight-bolder">Ulangi Password Baru&nbsp;*</label>
-                                                <div class="col-sm-9">
-                                                    <input type="password" class="form-control" name="i_pass_baru_lagi" id="i_pass_baru_lagi" placeholder="Masukkan kembali password Anda" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-sm-3 col-form-label"></label>
-                                                <div class="col-sm-9">
-                                                    <button type="submit" id="save-keamanan" class="btn btn-primary btn-sm"><i class="fa fa-save"></i>&nbsp;Simpan</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end:: keamanan -->
                 </div>
             </div>
+            <!-- end:: akun -->
+            <!-- begin:: keamanan -->
+            <div class="tab-pane fade" id="keamanan" role="tabpanel" aria-labelledby="keamanan-tab">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Keamanan {{ $title }}</h5>
+                            </div>
+                            <div class="card-body">
+                                <form id="form-keamanan" action="{{ route('admin.profil.save_security') }}" method="POST">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label font-weight-bolder">Password Lama&nbsp;*</label>
+                                        <div class="col-sm-9">
+                                            <input type="password" class="form-control" name="i_pass_lama" id="i_pass_lama" placeholder="Masukkan password lama Anda" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label font-weight-bolder">Password Baru&nbsp;*</label>
+                                        <div class="col-sm-9">
+                                            <input type="password" class="form-control" name="i_pass_baru" id="i_pass_baru" placeholder="Masukkan password baru Anda" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label font-weight-bolder">Ulangi Password Baru&nbsp;*</label>
+                                        <div class="col-sm-9">
+                                            <input type="password" class="form-control" name="i_pass_baru_lagi" id="i_pass_baru_lagi" placeholder="Masukkan kembali password Anda" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label"></label>
+                                        <div class="col-sm-9">
+                                            <button type="submit" id="save-keamanan" class="btn btn-primary btn-sm"><i class="fa fa-save"></i>&nbsp;Simpan</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end:: keamanan -->
         </div>
-        <!-- end:: body -->
     </div>
 </div>
 @endsection

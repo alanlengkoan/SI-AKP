@@ -92,6 +92,13 @@ if (!function_exists('tgl_indo')) {
     }
 }
 
+if (!function_exists('rupiah')) {
+    function rupiah($harga)
+    {
+        return 'Rp. ' . create_separator($harga) . ',-';
+    }
+}
+
 if (!function_exists('get_bulan')) {
     function get_bulan($bln)
     {

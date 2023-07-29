@@ -2,7 +2,7 @@
     <div class="m-header">
         <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
         <a href="#!" class="b-brand">
-            <h2 style="color: white;">SIPAPA</h2>
+            <h2 style="color: white;">SIAKP</h2>
         </a>
         <a href="#!" class="mob-toggler">
             <i class="feather icon-more-vertical"></i>
@@ -12,7 +12,7 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <h4 class="system-title">
-                    Sistem Penata Layanan Pemberhentian Pembayaran Gaji Secara Online
+                    Sistem Informasi Administrasi Kepegawaian
                 </h4>
             </li>
         </ul>

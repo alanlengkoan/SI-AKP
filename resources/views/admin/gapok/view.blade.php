@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-striped table-bordered" id="tabel-pegawai-dt" style="width: 100%;">
+                <table class="table table-striped table-bordered" id="tabel-gapok-dt" style="width: 100%;">
                 </table>
             </div>
         </div>
@@ -31,14 +31,14 @@
 
 <!-- begin:: modal tambah & ubah -->
 <div id="modal-add-upd" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><span id="judul-add-upd"></span> <?= $title ?></h4>
             </div>
-            <form id="form-add-upd" action="{{ route('admin.pegawai.save') }}" method="POST">
+            <form id="form-add-upd" action="{{ route('admin.gapok.save') }}" method="POST">
                 <!-- begin:: id -->
-                <input type="hidden" name="id_pegawai" id="id_pegawai" />
+                <input type="hidden" name="id_gapok" id="id_gapok" />
                 <!-- end:: id -->
 
                 <div class="modal-body">
@@ -48,63 +48,8 @@
                     <!-- begin:: untuk form -->
                     <div id="form-show">
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">NIP&nbsp;*</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="nip" id="nip" placeholder="Masukkan nip pegawai" />
-                                <span class="errorInput"></span>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Nama&nbsp;*</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukkan nama pegawai" />
-                                <span class="errorInput"></span>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Jenis Kelamin&nbsp;*</label>
-                            <div class="col-sm-10">
-                                <select class="form-control" name="kelamin" id="kelamin">
-                                    <option value="">Pilih Jenis Kelamin</option>
-                                    <option value="L">Laki-laki</option>
-                                    <option value="P">Perempuan</option>
-                                </select>
-                                <span class="errorInput"></span>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Tempat Lahir&nbsp;*</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="tmp_lahir" id="tmp_lahir" placeholder="Masukkan tempat lahir pegawai" />
-                                <span class="errorInput"></span>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Tanggal Lahir&nbsp;*</label>
-                            <div class="col-sm-10">
-                                <input type="date" class="form-control" name="tgl_lahir" id="tgl_lahir" />
-                                <span class="errorInput"></span>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Tanggal SK&nbsp;*</label>
-                            <div class="col-sm-10">
-                                <input type="date" class="form-control" name="tgl_sk" id="tgl_sk" />
-                                <span class="errorInput"></span>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Agama&nbsp;*</label>
-                            <div class="col-sm-10">
-                                <select name="id_agama" id="id_agama">
-                                    <option value=""></option>
-                                </select>
-                                <span class="errorInput"></span>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Pangkat&nbsp;*</label>
-                            <div class="col-sm-10">
+                            <label class="col-sm-3 col-form-label">Pangkat&nbsp;*</label>
+                            <div class="col-sm-9">
                                 <select name="id_pangkat" id="id_pangkat">
                                     <option value=""></option>
                                 </select>
@@ -112,11 +57,24 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Pendidikan&nbsp;*</label>
-                            <div class="col-sm-10">
-                                <select name="id_pendidikan" id="id_pendidikan">
-                                    <option value=""></option>
-                                </select>
+                            <label class="col-sm-3 col-form-label">MKG (Masa Kerja Golongan)&nbsp;*</label>
+                            <div class="col-sm-9">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control inputNumber" name="dari" id="dari" placeholder="Masukkan tahun dari" />
+                                        <span class="errorInput"></span>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control inputNumber" name="sampai" id="sampai" placeholder="Masukkan tahun sampai" />
+                                        <span class="errorInput"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Gaji&nbsp;*</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control inputNumber" name="gaji" id="gaji" placeholder="Masukkan gaji" />
                                 <span class="errorInput"></span>
                             </div>
                         </div>
@@ -147,7 +105,7 @@
     var table;
 
     let untukTabel = function() {
-        table = $('#tabel-pegawai-dt').DataTable({
+        table = $('#tabel-gapok-dt').DataTable({
             serverSide: true,
             responsive: true,
             processing: true,
@@ -157,45 +115,10 @@
                 emptyTable: "Tak ada data yang tersedia pada tabel ini.",
                 processing: "Data sedang diproses...",
             },
-            ajax: "{{ route('admin.pegawai.get_data_dt') }}",
+            ajax: "{{ route('admin.gapok.get_data_dt') }}",
             columns: [{
                     title: 'No.',
                     data: 'DT_RowIndex',
-                    class: 'text-center'
-                },
-                {
-                    title: 'NIP',
-                    data: 'nip',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Nama',
-                    data: 'nama',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Jenis Kelamin',
-                    data: 'kelamin',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Tempat Lahir',
-                    data: 'tmp_lahir',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Tgl Lahir',
-                    data: 'tgl_lahir',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Tgl SK',
-                    data: 'tgl_sk',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Agama',
-                    data: 'agama',
                     class: 'text-center'
                 },
                 {
@@ -204,8 +127,18 @@
                     class: 'text-center'
                 },
                 {
-                    title: 'Pendidikan',
-                    data: 'pendidikan',
+                    title: 'Dari',
+                    data: 'dari',
+                    class: 'text-center'
+                },
+                {
+                    title: 'Sampai',
+                    data: 'sampai',
+                    class: 'text-center'
+                },
+                {
+                    title: 'Gaji',
+                    data: 'gaji',
                     class: 'text-center'
                 },
                 {
@@ -228,15 +161,10 @@
         $(document).on('submit', '#form-add-upd', function(e) {
             e.preventDefault();
 
-            $('#nip').attr('required', 'required').attr('data-parsley-error-message', 'NIP harus diisi');
-            $('#nama').attr('required', 'required').attr('data-parsley-error-message', 'Nama harus diisi');
-            $('#kelamin').attr('required', 'required').attr('data-parsley-error-message', 'Jenis kelamin harus diisi');
-            $('#tmp_lahir').attr('required', 'required').attr('data-parsley-error-message', 'Tempat lahir harus diisi');
-            $('#tgl_lahir').attr('required', 'required').attr('data-parsley-error-message', 'Tanggal lahir harus diisi');
-            $('#tgl_sk').attr('required', 'required').attr('data-parsley-error-message', 'Tanggal SK harus diisi');
-            $('#id_agama').attr('required', 'required').attr('data-parsley-error-message', 'Agama harus dipilih');
             $('#id_pangkat').attr('required', 'required').attr('data-parsley-error-message', 'Pangkat harus dipilih');
-            $('#id_pendidikan').attr('required', 'required').attr('data-parsley-error-message', 'Pendidikan harus dipilih');
+            $('#dari').attr('required', 'required').attr('data-parsley-error-message', 'Tahun dari harus diisi');
+            $('#sampai').attr('required', 'required').attr('data-parsley-error-message', 'Tahun sampai harus diisi');
+            $('#gaji').attr('required', 'required').attr('data-parsley-error-message', 'Gaji harus diisi');
 
             var parsleyConfig = {
                 errorsContainer: function(parsleyField) {
@@ -283,11 +211,8 @@
         $(document).on('click', '#add', function(e) {
             e.preventDefault();
             $('#judul-add-upd').text('Tambah');
-
-            $('#id_pegawai').removeAttr('value');
-            $('#id_agama').val('').trigger('change');
+            $('#id_gapok').removeAttr('value');
             $('#id_pangkat').val('').trigger('change');
-            $('#id_pendidikan').val('').trigger('change');
 
             $('#form-add-upd').parsley().reset();
             $('#form-add-upd')[0].reset();
@@ -300,7 +225,7 @@
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: "{{ route('admin.pegawai.show') }}",
+                url: "{{ route('admin.gapok.show') }}",
                 data: {
                     id: ini.data('id')
                 },
@@ -316,16 +241,11 @@
                     $('#form-loading').empty();
                     $('#form-show').removeAttr('style');
 
-                    $('#id_pegawai').val(response.id_pegawai);
-                    $('#nip').val(response.nip);
-                    $('#nama').val(response.nama);
-                    $('#kelamin').val(response.kelamin);
-                    $('#tmp_lahir').val(response.tmp_lahir);
-                    $('#tgl_lahir').val(response.tgl_lahir);
-                    $('#tgl_sk').val(response.tgl_sk);
-                    $('#id_agama').val(response.id_agama).trigger('change');
+                    $('#id_gapok').val(response.id_gapok);
                     $('#id_pangkat').val(response.id_pangkat).trigger('change');
-                    $('#id_pendidikan').val(response.id_pendidikan).trigger('change');
+                    $('#dari').val(response.dari);
+                    $('#sampai').val(response.sampai);
+                    $('#gaji').val(response.gaji);
 
                     ini.removeAttr('disabled');
                     ini.html('<i class="fa fa-edit"></i>&nbsp;Ubah');
@@ -348,7 +268,7 @@
                 if (del) {
                     $.ajax({
                         type: "post",
-                        url: "{{ route('admin.pegawai.del') }}",
+                        url: "{{ route('admin.gapok.del') }}",
                         dataType: 'json',
                         data: {
                             id: ini.data('id'),
@@ -375,34 +295,10 @@
         });
     }();
 
-    let untukSelectAgama = function() {
-        $.get("{{ route('admin.agama.get_all') }}", function(response) {
-            $("#id_agama").select2({
-                placeholder: "Pilih Agama",
-                dropdownParent: $('#modal-add-upd'),
-                width: '100%',
-                allowClear: true,
-                data: response,
-            });
-        }, 'json');
-    }();
-
     let untukSelectPangkat = function() {
         $.get("{{ route('admin.pangkat.get_all') }}", function(response) {
             $("#id_pangkat").select2({
                 placeholder: "Pilih Pangkat",
-                dropdownParent: $('#modal-add-upd'),
-                width: '100%',
-                allowClear: true,
-                data: response,
-            });
-        }, 'json');
-    }();
-
-    let untukSelectPendidikan = function() {
-        $.get("{{ route('admin.pendidikan.get_all') }}", function(response) {
-            $("#id_pendidikan").select2({
-                placeholder: "Pilih Pendidikan",
                 dropdownParent: $('#modal-add-upd'),
                 width: '100%',
                 allowClear: true,
