@@ -20,7 +20,7 @@ class CreatePegawaisTable extends Migration
             $table->integer('id_pangkat')->unsigned()->nullable();
             $table->integer('id_pendidikan')->unsigned()->nullable();
             $table->string('nip', 50)->unique()->nullable();
-            $table->date('tgl_sk')->nullable();
+            $table->date('tmt')->nullable()->comment('tmt = tanggal mulai tugas');
             $table->string('nama', 50)->nullable();
             $table->enum('kelamin', ['L', 'P'])->nullable()->comment('L: Laki-laki, P: Perempuan');
             $table->string('tmp_lahir', 50)->nullable();

@@ -70,22 +70,22 @@
                     <!-- begin:: untuk form -->
                     <div id="form-show">
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">NIP&nbsp;*</label>
-                            <div class="col-sm-10">
+                            <label class="col-sm-3 col-form-label">NIP&nbsp;*</label>
+                            <div class="col-sm-9">
                                 <input type="text" class="form-control" name="nip" id="nip" placeholder="Masukkan nip pegawai" />
                                 <span class="errorInput"></span>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Nama&nbsp;*</label>
-                            <div class="col-sm-10">
+                            <label class="col-sm-3 col-form-label">Nama&nbsp;*</label>
+                            <div class="col-sm-9">
                                 <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukkan nama pegawai" />
                                 <span class="errorInput"></span>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Jenis Kelamin&nbsp;*</label>
-                            <div class="col-sm-10">
+                            <label class="col-sm-3 col-form-label">Jenis Kelamin&nbsp;*</label>
+                            <div class="col-sm-9">
                                 <select class="form-control" name="kelamin" id="kelamin">
                                     <option value="">Pilih Jenis Kelamin</option>
                                     <option value="L">Laki-laki</option>
@@ -95,29 +95,29 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Tempat Lahir&nbsp;*</label>
-                            <div class="col-sm-10">
+                            <label class="col-sm-3 col-form-label">Tempat Lahir&nbsp;*</label>
+                            <div class="col-sm-9">
                                 <input type="text" class="form-control" name="tmp_lahir" id="tmp_lahir" placeholder="Masukkan tempat lahir pegawai" />
                                 <span class="errorInput"></span>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Tanggal Lahir&nbsp;*</label>
-                            <div class="col-sm-10">
+                            <label class="col-sm-3 col-form-label">Tanggal Lahir&nbsp;*</label>
+                            <div class="col-sm-9">
                                 <input type="date" class="form-control" name="tgl_lahir" id="tgl_lahir" />
                                 <span class="errorInput"></span>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Tanggal SK&nbsp;*</label>
-                            <div class="col-sm-10">
-                                <input type="date" class="form-control" name="tgl_sk" id="tgl_sk" />
+                            <label class="col-sm-3 col-form-label">Tanggal Mulai Tugas&nbsp;*</label>
+                            <div class="col-sm-9">
+                                <input type="date" class="form-control" name="tmt" id="tmt" />
                                 <span class="errorInput"></span>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Agama&nbsp;*</label>
-                            <div class="col-sm-10">
+                            <label class="col-sm-3 col-form-label">Agama&nbsp;*</label>
+                            <div class="col-sm-9">
                                 <select name="id_agama" id="id_agama">
                                     <option value=""></option>
                                 </select>
@@ -125,8 +125,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Jabatan&nbsp;*</label>
-                            <div class="col-sm-10">
+                            <label class="col-sm-3 col-form-label">Jabatan&nbsp;*</label>
+                            <div class="col-sm-9">
                                 <select name="id_jabatan" id="id_jabatan">
                                     <option value=""></option>
                                 </select>
@@ -134,8 +134,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Pangkat&nbsp;*</label>
-                            <div class="col-sm-10">
+                            <label class="col-sm-3 col-form-label">Pangkat&nbsp;*</label>
+                            <div class="col-sm-9">
                                 <select name="id_pangkat" id="id_pangkat">
                                     <option value=""></option>
                                 </select>
@@ -143,8 +143,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Pendidikan&nbsp;*</label>
-                            <div class="col-sm-10">
+                            <label class="col-sm-3 col-form-label">Pendidikan&nbsp;*</label>
+                            <div class="col-sm-9">
                                 <select name="id_pendidikan" id="id_pendidikan">
                                     <option value=""></option>
                                 </select>
@@ -152,8 +152,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Status&nbsp;*</label>
-                            <div class="col-sm-10">
+                            <label class="col-sm-3 col-form-label">Status&nbsp;*</label>
+                            <div class="col-sm-9">
                                 <select class="form-control" name="status" id="status">
                                     <option value="">Pilih Status</option>
                                     <option value="1">Aktif</option>
@@ -240,8 +240,8 @@
                     class: 'text-center'
                 },
                 {
-                    title: 'Tgl SK',
-                    data: 'tgl_sk',
+                    title: 'Tgl Mulai Tugas',
+                    data: 'tmt',
                     class: 'text-center'
                 },
                 {
@@ -329,8 +329,8 @@
                     class: 'text-center'
                 },
                 {
-                    title: 'Tgl SK',
-                    data: 'tgl_sk',
+                    title: 'Tgl Mulai Tugas',
+                    data: 'tmt',
                     class: 'text-center'
                 },
                 {
@@ -378,7 +378,7 @@
             $('#kelamin').attr('required', 'required').attr('data-parsley-error-message', 'Jenis kelamin harus diisi');
             $('#tmp_lahir').attr('required', 'required').attr('data-parsley-error-message', 'Tempat lahir harus diisi');
             $('#tgl_lahir').attr('required', 'required').attr('data-parsley-error-message', 'Tanggal lahir harus diisi');
-            $('#tgl_sk').attr('required', 'required').attr('data-parsley-error-message', 'Tanggal SK harus diisi');
+            $('#tmt').attr('required', 'required').attr('data-parsley-error-message', 'Tanggal mulai tugas harus diisi');
             $('#id_agama').attr('required', 'required').attr('data-parsley-error-message', 'Agama harus dipilih');
             $('#id_pangkat').attr('required', 'required').attr('data-parsley-error-message', 'Pangkat harus dipilih');
             $('#id_pendidikan').attr('required', 'required').attr('data-parsley-error-message', 'Pendidikan harus dipilih');
@@ -469,7 +469,7 @@
                     $('#kelamin').val(response.kelamin);
                     $('#tmp_lahir').val(response.tmp_lahir);
                     $('#tgl_lahir').val(response.tgl_lahir);
-                    $('#tgl_sk').val(response.tgl_sk);
+                    $('#tmt').val(response.tmt);
                     $('#id_agama').val(response.id_agama).trigger('change');
                     $('#id_pangkat').val(response.id_pangkat).trigger('change');
                     $('#id_pendidikan').val(response.id_pendidikan).trigger('change');

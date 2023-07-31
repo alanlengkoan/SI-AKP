@@ -48,3 +48,15 @@ Breadcrumbs::for('admin.pegawai.pegawai', function (BreadcrumbTrail $trail) {
 
     $trail->push('Pegawai', route('admin.pegawai.pegawai'));
 });
+
+Breadcrumbs::for('admin.pegawai.det', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.pegawai.pegawai');
+
+    $trail->push('Detail', '#');
+});
+
+Breadcrumbs::for('admin.pegawai.pangkat.pangkat', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.pegawai.pegawai');
+
+    $trail->push('Pangkat', route('admin.pegawai.pangkat.pangkat'));
+});

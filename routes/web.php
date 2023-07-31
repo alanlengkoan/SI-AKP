@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\GapokController;
 use App\Http\Controllers\admin\JabatanController;
 use App\Http\Controllers\admin\PangkatController;
 use App\Http\Controllers\admin\PegawaiController;
+use App\Http\Controllers\admin\PegawaiPangkatController;
 use App\Http\Controllers\admin\PendidikanController;
 use App\Http\Controllers\admin\ProfilController;
 use App\Http\Controllers\AuthController;
@@ -88,25 +89,23 @@ Route::group(['middleware' => ['session.auth', 'prevent.back.history']], functio
         // begin:: pegawai
         Route::controller(PegawaiController::class)->prefix('pegawai')->as('pegawai.')->group(function () {
             Route::get('/', 'index')->name('pegawai');
+            Route::get('/det/{id}', 'det')->name('det');
+            Route::get('get_all', 'get_all')->name('get_all');
             Route::post('/get_data_dt', 'get_data_dt')->name('get_data_dt');
             Route::post('/show', 'show')->name('show');
             Route::post('/save', 'save')->name('save');
             Route::post('/del', 'del')->name('del');
+
+            // begin:: pegawai pangkat
+            Route::controller(PegawaiPangkatController::class)->prefix('/pangkat')->as('pangkat.')->group(function () {
+                Route::get('/', 'index')->name('pangkat');
+                Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
+                Route::post('/show', 'show')->name('show');
+                Route::post('/save', 'save')->name('save');
+                Route::post('/del', 'del')->name('del');
+            });
+            // end:: pegawai pangkat
         });
-
-        // Route::prefix('/pegawai')->group(function () {
-        //     Route::get('/', [PegawaiController::class, 'index'])->name('pegawai');
-        //     Route::get('/det/{any}', [PegawaiController::class, 'det'])->name('pegawai.det');
-        //     Route::get('/get_all', [PegawaiController::class, 'get_all'])->name('pegawai.get_all');
-        //     Route::get('/get_data_dt', [PegawaiController::class, 'get_data_dt'])->name('pegawai.get_data_dt');
-
-        //     // begin:: pegawai anggota
-        //     Route::prefix('/anggota')->group(function () {
-        //         Route::get('/get_all', [PegawaiAnggotaController::class, 'get_all'])->name('pegawai.anggota.get_all');
-        //         Route::get('/get_data_dt', [PegawaiAnggotaController::class, 'get_data_dt'])->name('pegawai.anggota.get_data_dt');
-        //     });
-        //     // end:: pegawai anggota
-        // });
         // end:: pegawai
     });
     // end:: admin

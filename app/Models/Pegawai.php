@@ -20,7 +20,7 @@ class Pegawai extends Model
         'id_pangkat',
         'id_pendidikan',
         'nip',
-        'tgl_sk',
+        'tmt',
         'nama',
         'kelamin',
         'tmp_lahir',

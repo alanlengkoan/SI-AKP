@@ -73,6 +73,44 @@
                         <span class="pcoded-mtext">Pegawai</span>
                     </a>
                 </li>
+                <li class="nav-item pcoded-menu-caption">
+                    <label>Pustaka</label>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.pegawai.pangkat.pangkat') }}" class="nav-link">
+                        <span class="pcoded-micon">
+                            <i class="feather icon-sidebar"></i>
+                        </span>
+                        <span class="pcoded-mtext">Kenaikan Pangkat</span>
+                    </a>
+                </li>
+                <li class="nav-item pcoded-menu-caption">
+                    <label>Laporan</label>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <span class="pcoded-micon">
+                            <i class="feather icon-sidebar"></i>
+                        </span>
+                        <span class="pcoded-mtext">Pegawai Aktif</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <span class="pcoded-micon">
+                            <i class="feather icon-sidebar"></i>
+                        </span>
+                        <span class="pcoded-mtext">Pegawai Pensiun</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <span class="pcoded-micon">
+                            <i class="feather icon-sidebar"></i>
+                        </span>
+                        <span class="pcoded-mtext">Riwayat Pangkat</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
