@@ -12,7 +12,7 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <h4 class="system-title">
-                    Sistem Informasi Administrasi Kepegawaian
+                    Sistem Informasi Administrasi Kepegawaian Kecamatan Bambang
                 </h4>
             </li>
         </ul>

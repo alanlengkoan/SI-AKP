@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\AgamaController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\GapokController;
+use App\Http\Controllers\admin\JabatanController;
 use App\Http\Controllers\admin\PangkatController;
 use App\Http\Controllers\admin\PegawaiController;
 use App\Http\Controllers\admin\PendidikanController;
@@ -41,6 +42,17 @@ Route::group(['middleware' => ['session.auth', 'prevent.back.history']], functio
         });
         // end:: agama
 
+        // begin:: jabatan
+        Route::controller(JabatanController::class)->prefix('jabatan')->as('jabatan.')->group(function () {
+            Route::get('/', 'index')->name('jabatan');
+            Route::get('/get_all', 'get_all')->name('get_all');
+            Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
+            Route::post('/show', 'show')->name('show');
+            Route::post('/save', 'save')->name('save');
+            Route::post('/del', 'del')->name('del');
+        });
+        // end:: jabatan
+
         // begin:: pangkat
         Route::controller(PangkatController::class)->prefix('pangkat')->as('pangkat.')->group(function () {
             Route::get('/', 'index')->name('pangkat');
@@ -76,7 +88,7 @@ Route::group(['middleware' => ['session.auth', 'prevent.back.history']], functio
         // begin:: pegawai
         Route::controller(PegawaiController::class)->prefix('pegawai')->as('pegawai.')->group(function () {
             Route::get('/', 'index')->name('pegawai');
-            Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
+            Route::post('/get_data_dt', 'get_data_dt')->name('get_data_dt');
             Route::post('/show', 'show')->name('show');
             Route::post('/save', 'save')->name('save');
             Route::post('/del', 'del')->name('del');

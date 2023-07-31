@@ -34,6 +34,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('admin.jabatan.jabatan') }}" class="nav-link">
+                        <span class="pcoded-micon">
+                            <i class="feather icon-sidebar"></i>
+                        </span>
+                        <span class="pcoded-mtext">Jabatan</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('admin.pangkat.pangkat') }}" class="nav-link">
                         <span class="pcoded-micon">
                             <i class="feather icon-sidebar"></i>

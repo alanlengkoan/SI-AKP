@@ -16,6 +16,7 @@ class Pegawai extends Model
     protected $fillable = [
         'id_pegawai',
         'id_agama',
+        'id_jabatan',
         'id_pangkat',
         'id_pendidikan',
         'nip',
@@ -32,6 +33,12 @@ class Pegawai extends Model
     public function toAgama()
     {
         return $this->belongsTo(Agama::class, 'id_agama');
+    }
+
+    // untuk relasi ke tabel jabatan
+    public function toJabatan()
+    {
+        return $this->belongsTo(Jabatan::class, 'id_jabatan');
     }
 
     // untuk relasi ke tabel pangkat

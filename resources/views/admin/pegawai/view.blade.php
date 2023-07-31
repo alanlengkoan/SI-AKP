@@ -13,7 +13,7 @@
 <!-- begin:: content -->
 @section('content')
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-sm-12">
         <div class="card">
             <div class="card-header">
                 <h5>{{ $title }}</h5>
@@ -22,8 +22,30 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-striped table-bordered" id="tabel-pegawai-dt" style="width: 100%;">
-                </table>
+                <ul class="nav nav-pills bg-white" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active text-uppercase" id="aktif-tab" data-toggle="tab" href="#aktif" role="tab" aria-controls="aktif" aria-selected="true">
+                            Aktif
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase" id="pensiun-tab" data-toggle="tab" href="#pensiun" role="tab" aria-controls="pensiun" aria-selected="true">
+                            Pensiun
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content pt-2" id="myTabContent">
+                    <!-- begin:: aktif -->
+                    <div class="tab-pane fade show active" id="aktif" role="tabpanel" aria-labelledby="aktif-tab">
+                        <table class="table table-striped table-bordered" id="tabel-pegawai-aktif-dt" style="width: 100%;"></table>
+                    </div>
+                    <!-- end:: aktif -->
+                    <!-- begin:: pensiun -->
+                    <div class="tab-pane fade" id="pensiun" role="tabpanel" aria-labelledby="pensiun-tab">
+                        <table class="table table-striped table-bordered" id="tabel-pegawai-pensiun-dt" style="width: 100%;"></table>
+                    </div>
+                    <!-- end:: pensiun -->
+                </div>
             </div>
         </div>
     </div>
@@ -103,6 +125,15 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Jabatan&nbsp;*</label>
+                            <div class="col-sm-10">
+                                <select name="id_jabatan" id="id_jabatan">
+                                    <option value=""></option>
+                                </select>
+                                <span class="errorInput"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Pangkat&nbsp;*</label>
                             <div class="col-sm-10">
                                 <select name="id_pangkat" id="id_pangkat">
@@ -116,6 +147,17 @@
                             <div class="col-sm-10">
                                 <select name="id_pendidikan" id="id_pendidikan">
                                     <option value=""></option>
+                                </select>
+                                <span class="errorInput"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Status&nbsp;*</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" name="status" id="status">
+                                    <option value="">Pilih Status</option>
+                                    <option value="1">Aktif</option>
+                                    <option value="0">Pensiun</option>
                                 </select>
                                 <span class="errorInput"></span>
                             </div>
@@ -144,20 +186,29 @@
 <script type="text/javascript" src="{{ asset_admin('js/plugins/select2.full.min.js') }}"></script>
 
 <script>
-    var table;
+    var tablePegawaiAktif;
+    var tablePegawaiPensiun;
 
     let untukTabel = function() {
-        table = $('#tabel-pegawai-dt').DataTable({
+        tablePegawaiAktif = $('#tabel-pegawai-aktif-dt').DataTable({
             serverSide: true,
             responsive: true,
             processing: true,
+            autoWidth: false,
             lengthMenu: [5, 10, 25, 50],
             pageLength: 10,
             language: {
                 emptyTable: "Tak ada data yang tersedia pada tabel ini.",
                 processing: "Data sedang diproses...",
             },
-            ajax: "{{ route('admin.pegawai.get_data_dt') }}",
+            ajax: {
+                url: "{{ route('admin.pegawai.get_data_dt') }}",
+                type: "post",
+                data: function(d) {
+                    d._token = "{{ csrf_token() }}";
+                    d.status = '1';
+                }
+            },
             columns: [{
                     title: 'No.',
                     data: 'DT_RowIndex',
@@ -199,6 +250,100 @@
                     class: 'text-center'
                 },
                 {
+                    title: 'Jabatan',
+                    data: 'jabatan',
+                    class: 'text-center'
+                },
+                {
+                    title: 'Pangkat',
+                    data: 'pangkat',
+                    class: 'text-center'
+                },
+                {
+                    title: 'Pendidikan',
+                    data: 'pendidikan',
+                    class: 'text-center'
+                },
+                {
+                    title: 'Aksi',
+                    data: 'action',
+                    className: 'text-center',
+                    responsivePriority: -1,
+                    orderable: false,
+                    searchable: false,
+                },
+            ],
+            columnDefs: [{
+                targets: "datatable-nosort",
+                orderable: false,
+            }, ],
+        });
+
+        tablePegawaiPensiun = $('#tabel-pegawai-pensiun-dt').DataTable({
+            serverSide: true,
+            responsive: true,
+            processing: true,
+            autoWidth: false,
+            lengthMenu: [5, 10, 25, 50],
+            pageLength: 10,
+            language: {
+                emptyTable: "Tak ada data yang tersedia pada tabel ini.",
+                processing: "Data sedang diproses...",
+            },
+            ajax: {
+                url: "{{ route('admin.pegawai.get_data_dt') }}",
+                type: "post",
+                data: function(d) {
+                    d._token = "{{ csrf_token() }}";
+                    d.status = '0';
+                }
+            },
+            columns: [{
+                    title: 'No.',
+                    data: 'DT_RowIndex',
+                    class: 'text-center'
+                },
+                {
+                    title: 'NIP',
+                    data: 'nip',
+                    class: 'text-center'
+                },
+                {
+                    title: 'Nama',
+                    data: 'nama',
+                    class: 'text-center'
+                },
+                {
+                    title: 'Jenis Kelamin',
+                    data: 'kelamin',
+                    class: 'text-center'
+                },
+                {
+                    title: 'Tempat Lahir',
+                    data: 'tmp_lahir',
+                    class: 'text-center'
+                },
+                {
+                    title: 'Tgl Lahir',
+                    data: 'tgl_lahir',
+                    class: 'text-center'
+                },
+                {
+                    title: 'Tgl SK',
+                    data: 'tgl_sk',
+                    class: 'text-center'
+                },
+                {
+                    title: 'Agama',
+                    data: 'agama',
+                    class: 'text-center'
+                },
+                {
+                    title: 'Jabatan',
+                    data: 'jabatan',
+                    class: 'text-center'
+                },
+                {
                     title: 'Pangkat',
                     data: 'pangkat',
                     class: 'text-center'
@@ -237,6 +382,7 @@
             $('#id_agama').attr('required', 'required').attr('data-parsley-error-message', 'Agama harus dipilih');
             $('#id_pangkat').attr('required', 'required').attr('data-parsley-error-message', 'Pangkat harus dipilih');
             $('#id_pendidikan').attr('required', 'required').attr('data-parsley-error-message', 'Pendidikan harus dipilih');
+            $('#status').attr('required', 'required').attr('data-parsley-error-message', 'Status harus dipilih');
 
             var parsleyConfig = {
                 errorsContainer: function(parsleyField) {
@@ -268,7 +414,8 @@
                             button: response.button,
                         }).then((value) => {
                             $('#modal-add-upd').modal('hide');
-                            table.ajax.reload();
+                            tablePegawaiAktif.ajax.reload();
+                            tablePegawaiPensiun.ajax.reload();
                         });
 
                         $('#save').removeAttr('disabled');
@@ -326,6 +473,7 @@
                     $('#id_agama').val(response.id_agama).trigger('change');
                     $('#id_pangkat').val(response.id_pangkat).trigger('change');
                     $('#id_pendidikan').val(response.id_pendidikan).trigger('change');
+                    $('#status').val(response.status);
 
                     ini.removeAttr('disabled');
                     ini.html('<i class="fa fa-edit"></i>&nbsp;Ubah');
@@ -364,7 +512,8 @@
                                 icon: response.type,
                                 button: response.button,
                             }).then((value) => {
-                                table.ajax.reload();
+                                tablePegawaiAktif.ajax.reload();
+                                tablePegawaiPensiun.ajax.reload();
                             });
                         }
                     });
@@ -379,6 +528,18 @@
         $.get("{{ route('admin.agama.get_all') }}", function(response) {
             $("#id_agama").select2({
                 placeholder: "Pilih Agama",
+                dropdownParent: $('#modal-add-upd'),
+                width: '100%',
+                allowClear: true,
+                data: response,
+            });
+        }, 'json');
+    }();
+
+    let untukSelectJabatan = function() {
+        $.get("{{ route('admin.jabatan.get_all') }}", function(response) {
+            $("#id_jabatan").select2({
+                placeholder: "Pilih Jabatan",
                 dropdownParent: $('#modal-add-upd'),
                 width: '100%',
                 allowClear: true,

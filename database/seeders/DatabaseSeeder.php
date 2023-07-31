@@ -15,6 +15,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UsersTableSeeder::class, // untuk default user
+            AgamaTableSeeder::class, // untuk default agama 
+            JabatanTableSeeder::class, // untuk default jabatan
+            PangkatTableSeeder::class, // untuk default pangkat
+            PendidikanTableSeeder::class, // untuk default pendidikan
         ]);
     }
 }

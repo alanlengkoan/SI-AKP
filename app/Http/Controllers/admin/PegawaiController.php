@@ -23,14 +23,17 @@ class PegawaiController extends Controller
         return Template::load($this->session['roles'], 'Pegawai', 'pegawai', 'view');
     }
 
-    public function get_data_dt()
+    public function get_data_dt(Request $request)
     {
-        $data = Pegawai::latest()->get();
+        $data = Pegawai::whereStatus($request->status)->latest()->get();
 
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('agama', function ($row) {
                 return $row->toAgama->nama;
+            })
+            ->addColumn('jabatan', function ($row) {
+                return $row->toJabatan->nama;
             })
             ->addColumn('pangkat', function ($row) {
                 return $row->toPangkat->nama;
@@ -69,6 +72,7 @@ class PegawaiController extends Controller
             if ($request->id_pegawai === null) {
                 Pegawai::create([
                     'id_agama'      => $request->id_agama,
+                    'id_jabatan'    => $request->id_jabatan,
                     'id_pangkat'    => $request->id_pangkat,
                     'id_pendidikan' => $request->id_pendidikan,
                     'nip'           => $request->nip,
@@ -77,7 +81,7 @@ class PegawaiController extends Controller
                     'kelamin'       => $request->kelamin,
                     'tmp_lahir'     => $request->tmp_lahir,
                     'tgl_lahir'     => $request->tgl_lahir,
-                    'status'        => '1',
+                    'status'        => $request->status,
                     'by_users'      => $this->session['id_users'],
                 ]);
 
@@ -86,6 +90,7 @@ class PegawaiController extends Controller
                 $pegawai = Pegawai::find($request->id_pegawai);
                 $pegawai->update([
                     'id_agama'      => $request->id_agama,
+                    'id_jabatan'    => $request->id_jabatan,
                     'id_pangkat'    => $request->id_pangkat,
                     'id_pendidikan' => $request->id_pendidikan,
                     'nip'           => $request->nip,
@@ -94,6 +99,7 @@ class PegawaiController extends Controller
                     'kelamin'       => $request->kelamin,
                     'tmp_lahir'     => $request->tmp_lahir,
                     'tgl_lahir'     => $request->tgl_lahir,
+                    'status'        => $request->status,
                     'by_users'      => $this->session['id_users'],
                 ]);
 
