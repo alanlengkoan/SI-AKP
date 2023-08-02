@@ -380,6 +380,7 @@
             $('#tgl_lahir').attr('required', 'required').attr('data-parsley-error-message', 'Tanggal lahir harus diisi');
             $('#tmt').attr('required', 'required').attr('data-parsley-error-message', 'Tanggal mulai tugas harus diisi');
             $('#id_agama').attr('required', 'required').attr('data-parsley-error-message', 'Agama harus dipilih');
+            $('#id_jabatan').attr('required', 'required').attr('data-parsley-error-message', 'Jabatan harus dipilih');
             $('#id_pangkat').attr('required', 'required').attr('data-parsley-error-message', 'Pangkat harus dipilih');
             $('#id_pendidikan').attr('required', 'required').attr('data-parsley-error-message', 'Pendidikan harus dipilih');
             $('#status').attr('required', 'required').attr('data-parsley-error-message', 'Status harus dipilih');
@@ -433,6 +434,7 @@
 
             $('#id_pegawai').removeAttr('value');
             $('#id_agama').val('').trigger('change');
+            $('#id_jabatan').val('').trigger('change');
             $('#id_pangkat').val('').trigger('change');
             $('#id_pendidikan').val('').trigger('change');
 
@@ -471,6 +473,7 @@
                     $('#tgl_lahir').val(response.tgl_lahir);
                     $('#tmt').val(response.tmt);
                     $('#id_agama').val(response.id_agama).trigger('change');
+                    $('#id_jabatan').val(response.id_jabatan).trigger('change');
                     $('#id_pangkat').val(response.id_pangkat).trigger('change');
                     $('#id_pendidikan').val(response.id_pendidikan).trigger('change');
                     $('#status').val(response.status);

@@ -44,8 +44,10 @@ class AuthController extends Controller
             // untuk check role
             if ($users->roles === 'admin') {
                 return redirect()->intended('admin');
-            } else if ($users->roles === 'operator') {
-                return redirect()->intended('operator');
+            } else if ($users->roles === 'camat') {
+                return redirect()->intended('camat');
+            } else if ($users->roles === 'pegawai') {
+                return redirect()->intended('pegawai');
             } else {
                 return redirect()->intended('/');
             }

@@ -15,13 +15,13 @@ class CreatePegawaisTable extends Migration
     {
         Schema::create('pegawai', function (Blueprint $table) {
             $table->increments('id_pegawai');
+            $table->integer('id_users')->unsigned()->nullable();
             $table->integer('id_agama')->unsigned()->nullable();
             $table->integer('id_jabatan')->unsigned()->nullable();
             $table->integer('id_pangkat')->unsigned()->nullable();
             $table->integer('id_pendidikan')->unsigned()->nullable();
             $table->string('nip', 50)->unique()->nullable();
             $table->date('tmt')->nullable()->comment('tmt = tanggal mulai tugas');
-            $table->string('nama', 50)->nullable();
             $table->enum('kelamin', ['L', 'P'])->nullable()->comment('L: Laki-laki, P: Perempuan');
             $table->string('tmp_lahir', 50)->nullable();
             $table->date('tgl_lahir')->nullable();
@@ -31,6 +31,7 @@ class CreatePegawaisTable extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
+            $table->foreign('id_users')->references('id_users')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_agama')->references('id_agama')->on('agama')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_jabatan')->references('id_jabatan')->on('jabatan')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_pangkat')->references('id_pangkat')->on('pangkat')->onDelete('cascade')->onUpdate('cascade');

@@ -1,5 +1,5 @@
 <!-- begin:: base -->
-@extends('admin/base')
+@extends('camat/base')
 <!-- end:: base -->
 
 <!-- begin:: css local -->
@@ -102,15 +102,6 @@
                 </div>
             </div>
         </div>
-        <div class="card">
-            <div class="card-header">
-                <h5>Riwayat Pangkat Pegawai</h5>
-            </div>
-            <div class="card-body">
-                <table class="table table-striped table-bordered" id="tabel-pegawai_pangkat-dt" style="width: 100%;">
-                </table>
-            </div>
-        </div>
     </div>
 </div>
 @endsection
@@ -118,53 +109,5 @@
 
 <!-- begin:: js local -->
 @section('js')
-<script type="text/javascript" src="{{ asset_admin('my_assets/datatables/1.11.3/js/jquery.dataTables.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset_admin('my_assets/datatables/1.11.3/js/dataTables.bootstrap4.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset_admin('my_assets/datatables-responsive/2.2.9/js/dataTables.responsive.min.js') }}"></script>
-
-<script>
-    var tablePegawaiPangkat;
-
-    let untukTable = function() {
-        tablePegawaiAnggota = $('#tabel-pegawai_pangkat-dt').DataTable({
-            responsive: true,
-            processing: true,
-            lengthMenu: [5, 10, 25, 50],
-            pageLength: 10,
-            language: {
-                emptyTable: "Tak ada data yang tersedia pada tabel ini.",
-                processing: "Data sedang diproses...",
-            },
-            ajax: {
-                url: "{{ route('admin.pegawai.pangkat.get_data_dt') }}",
-                type: 'GET',
-                data: {
-                    id_pegawai: '{{ $pegawai->id_pegawai }}'
-                }
-            },
-            columns: [{
-                    title: 'No.',
-                    data: 'DT_RowIndex',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Pegawai',
-                    data: 'pegawai',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Pangkat',
-                    data: 'pangkat',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Tgl Mulai Tugas',
-                    data: 'tmt',
-                    class: 'text-center'
-                },
-            ],
-        });
-    }();
-</script>
 @endsection
 <!-- end:: js local -->

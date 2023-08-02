@@ -15,6 +15,7 @@ class Pegawai extends Model
     // untuk fillable
     protected $fillable = [
         'id_pegawai',
+        'id_users',
         'id_agama',
         'id_jabatan',
         'id_pangkat',
@@ -28,6 +29,12 @@ class Pegawai extends Model
         'status',
         'by_users',
     ];
+
+    // untuk relasi ke tabel users
+    public function toUsers()
+    {
+        return $this->belongsTo(User::class, 'id_users');
+    }
 
     // untuk relasi ke tabel agama
     public function toAgama()
@@ -51,5 +58,11 @@ class Pegawai extends Model
     public function toPendidikan()
     {
         return $this->belongsTo(Pendidikan::class, 'id_pendidikan');
+    }
+
+    // untuk relasi ke tabel pegawai_pangkat
+    public function toPegawaiPangkat()
+    {
+        return $this->hasMany(PegawaiPangkat::class, 'id_pegawai');
     }
 }

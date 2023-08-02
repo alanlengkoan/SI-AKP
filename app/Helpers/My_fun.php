@@ -361,6 +361,15 @@ if (!function_exists('count_mounth')) {
     }
 }
 
+if (!function_exists('count_year')) {
+    function count_year($to)
+    {
+        $date = Carbon::parse($to);
+        $result = $date->diffInYears(Carbon::now());
+        return $result;
+    }
+}
+
 if (!function_exists('get_extension')) {
     function get_extension($file)
     {

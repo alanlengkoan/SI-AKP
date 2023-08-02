@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-striped table-bordered" id="tabel-pegawai_pangkat-dt" style="width: 100%;">
+                <table class="table table-striped table-bordered" id="tabel-users-dt" style="width: 100%;">
                 </table>
             </div>
         </div>
@@ -35,9 +35,9 @@
             <div class="modal-header">
                 <h4 class="modal-title"><span id="judul-add-upd"></span> <?= $title ?></h4>
             </div>
-            <form id="form-add-upd" action="{{ route('admin.pegawai.pangkat.save') }}" method="POST">
+            <form id="form-add-upd" action="{{ route('admin.users.save') }}" method="POST">
                 <!-- begin:: id -->
-                <input type="hidden" name="id_pegawai_pangkat" id="id_pegawai_pangkat" />
+                <input type="hidden" name="id_users" id="id_users" />
                 <!-- end:: id -->
 
                 <div class="modal-body">
@@ -47,27 +47,33 @@
                     <!-- begin:: untuk form -->
                     <div id="form-show">
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Pegawai&nbsp;*</label>
-                            <div class="col-sm-9">
-                                <select name="id_pegawai" id="id_pegawai">
-                                    <option value=""></option>
-                                </select>
+                            <label class="col-sm-2 col-form-label">Nama&nbsp;*</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukkan nama" />
                                 <span class="errorInput"></span>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Pangkat&nbsp;*</label>
-                            <div class="col-sm-9">
-                                <select name="id_pangkat" id="id_pangkat">
-                                    <option value=""></option>
-                                </select>
+                            <label class="col-sm-2 col-form-label">Email&nbsp;*</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="email" id="email" placeholder="Masukkan email" />
                                 <span class="errorInput"></span>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Tanggal Mulai Tugas&nbsp;*</label>
-                            <div class="col-sm-9">
-                                <input type="date" class="form-control" name="tmt" id="tmt" />
+                            <label class="col-sm-2 col-form-label">Username&nbsp;*</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="username" id="username" placeholder="Masukkan username" />
+                                <span class="errorInput"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Role&nbsp;*</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" name="roles" id="roles">
+                                    <option value="">Pilih Status</option>
+                                    <option value="camat">Camat</option>
+                                </select>
                                 <span class="errorInput"></span>
                             </div>
                         </div>
@@ -92,14 +98,12 @@
 <script type="text/javascript" src="{{ asset_admin('my_assets/datatables/1.11.3/js/dataTables.bootstrap4.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset_admin('my_assets/datatables-responsive/2.2.9/js/dataTables.responsive.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset_admin('my_assets/parsley/2.9.2/parsley.js') }}"></script>
-<script type="text/javascript" src="{{ asset_admin('js/plugins/select2.full.min.js') }}"></script>
-<link rel="stylesheet" type="text/css" href="{{ asset_admin('css/plugins/select2.min.css') }}" />
 
 <script>
     var table;
 
     let untukTabel = function() {
-        table = $('#tabel-pegawai_pangkat-dt').DataTable({
+        table = $('#tabel-users-dt').DataTable({
             serverSide: true,
             responsive: true,
             processing: true,
@@ -109,25 +113,35 @@
                 emptyTable: "Tak ada data yang tersedia pada tabel ini.",
                 processing: "Data sedang diproses...",
             },
-            ajax: "{{ route('admin.pegawai.pangkat.get_data_dt') }}",
+            ajax: "{{ route('admin.users.get_data_dt') }}",
             columns: [{
                     title: 'No.',
                     data: 'DT_RowIndex',
                     class: 'text-center'
                 },
                 {
-                    title: 'Pegawai',
-                    data: 'pegawai',
+                    title: 'Nama',
+                    data: 'nama',
                     class: 'text-center'
                 },
                 {
-                    title: 'Pangkat',
-                    data: 'pangkat',
+                    title: 'Email',
+                    data: 'email',
                     class: 'text-center'
                 },
                 {
-                    title: 'Tgl Mulai Tugas',
-                    data: 'tmt',
+                    title: 'Username',
+                    data: 'username',
+                    class: 'text-center'
+                },
+                {
+                    title: 'Roles',
+                    data: 'roles',
+                    class: 'text-center'
+                },
+                {
+                    title: 'Status',
+                    data: 'active',
                     class: 'text-center'
                 },
                 {
@@ -150,9 +164,10 @@
         $(document).on('submit', '#form-add-upd', function(e) {
             e.preventDefault();
 
-            $('#id_pegawai').attr('required', 'required').attr('data-parsley-error-message', 'Pegawai harus diisi.');
-            $('#id_pangkat').attr('required', 'required').attr('data-parsley-error-message', 'Pangkat harus diisi.');
-            $('#tmt').attr('required', 'required').attr('data-parsley-error-message', 'Tanggak Mulai Tugas harus diisi.');
+            $('#nama').attr('required', 'required').attr('data-parsley-error-message', 'Nama harus diisi');
+            $('#email').attr('required', 'required').attr('data-parsley-error-message', 'Email harus diisi');
+            $('#username').attr('required', 'required').attr('data-parsley-error-message', 'Username harus diisi');
+            $('#roles').attr('required', 'required').attr('data-parsley-error-message', 'Role harus diisi');
 
             var parsleyConfig = {
                 errorsContainer: function(parsleyField) {
@@ -199,56 +214,19 @@
         $(document).on('click', '#add', function(e) {
             e.preventDefault();
             $('#judul-add-upd').text('Tambah');
-            $('#id_pegawai_pangkat').removeAttr('value');
-            $('#id_pegawai').val('').trigger('change');
-            $('#id_pangkat').val('').trigger('change');
+            $('#id_users').removeAttr('value');
 
             $('#form-add-upd').parsley().reset();
             $('#form-add-upd')[0].reset();
         });
     }();
 
-    let untukUbahData = function() {
-        $(document).on('click', '#upd', function(e) {
-            var ini = $(this);
-            $.ajax({
-                type: 'POST',
-                dataType: 'json',
-                url: "{{ route('admin.pegawai.pangkat.show') }}",
-                data: {
-                    id: ini.data('id')
-                },
-                beforeSend: function() {
-                    $('#judul-add-upd').html('Ubah');
-                    $('#form-loading').html(`<div class="center"><div class="loader"></div></div>`);
-                    $('#form-show').attr('style', 'display: none');
-
-                    ini.attr('disabled', 'disabled');
-                    ini.html('<i class="fa fa-spinner"></i>&nbsp;Menunggu...');
-                },
-                success: function(response) {
-                    $('#form-loading').empty();
-                    $('#form-show').removeAttr('style');
-
-                    $('#id_pegawai_pangkat').val(response.id_pegawai_pangkat);
-                    $('#id_pegawai').val(response.id_pegawai).trigger('change');
-                    $('#id_pangkat').val(response.id_pangkat).trigger('change');
-                    $('#tmt').val(response.tmt);
-
-                    ini.removeAttr('disabled');
-                    ini.html('<i class="fa fa-edit"></i>&nbsp;Ubah');
-                }
-            });
-        });
-    }();
-
-    let untukHapusData = function() {
-        $(document).on('click', '#del', function() {
+    let untukStatus = function() {
+        $(document).on('click', '#sts', function() {
             var ini = $(this);
 
             swal({
-                title: "Apakah Anda yakin ingin menghapusnya?",
-                text: "Data yang telah dihapus tidak dapat dikembalikan!",
+                title: "Apakah Anda yakin ingin mengubah status User?",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -256,14 +234,14 @@
                 if (del) {
                     $.ajax({
                         type: "post",
-                        url: "{{ route('admin.pegawai.pangkat.del') }}",
+                        url: "{{ route('admin.users.active') }}",
                         dataType: 'json',
                         data: {
                             id: ini.data('id'),
                         },
                         beforeSend: function() {
                             ini.attr('disabled', 'disabled');
-                            ini.html('<i class="fa fa-spinner"></i>&nbsp;Menunggu...');
+                            ini.html('<i class="fa fa-spinner"></i>&nbsp;<span>Menunggu...</span>');
                         },
                         success: function(response) {
                             swal({
@@ -283,28 +261,44 @@
         });
     }();
 
-    let untukSelectPegawai = function() {
-        $.get("{{ route('admin.pegawai.get_all') }}", function(response) {
-            $("#id_pegawai").select2({
-                placeholder: "Pilih Pegawai",
-                dropdownParent: $('#modal-add-upd'),
-                width: '100%',
-                allowClear: true,
-                data: response,
-            });
-        }, 'json');
-    }();
+    let untukResetPassword = function() {
+        $(document).on('click', '#res-pass', function() {
+            var ini = $(this);
 
-    let untukSelectPangkat = function() {
-        $.get("{{ route('admin.pangkat.get_all') }}", function(response) {
-            $("#id_pangkat").select2({
-                placeholder: "Pilih Pangkat",
-                dropdownParent: $('#modal-add-upd'),
-                width: '100%',
-                allowClear: true,
-                data: response,
+            swal({
+                title: "Apakah Anda yakin ingin mereset password User?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((del) => {
+                if (del) {
+                    $.ajax({
+                        type: "post",
+                        url: "{{ route('admin.users.reset_password') }}",
+                        dataType: 'json',
+                        data: {
+                            id: ini.data('id'),
+                        },
+                        beforeSend: function() {
+                            ini.attr('disabled', 'disabled');
+                            ini.html('<i class="fa fa-spinner"></i>&nbsp;<span>Menunggu...</span>');
+                        },
+                        success: function(response) {
+                            swal({
+                                title: response.title,
+                                text: response.text,
+                                icon: response.type,
+                                button: response.button,
+                            }).then((value) => {
+                                table.ajax.reload();
+                            });
+                        }
+                    });
+                } else {
+                    return false;
+                }
             });
-        }, 'json');
+        });
     }();
 </script>
 @endsection

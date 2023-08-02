@@ -73,6 +73,14 @@
                         <span class="pcoded-mtext">Pegawai</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.users.users') }}" class="nav-link">
+                        <span class="pcoded-micon">
+                            <i class="feather icon-sidebar"></i>
+                        </span>
+                        <span class="pcoded-mtext">Users</span>
+                    </a>
+                </li>
                 <li class="nav-item pcoded-menu-caption">
                     <label>Pustaka</label>
                 </li>
@@ -88,7 +96,7 @@
                     <label>Laporan</label>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.laporan.pegawai') }}" class="nav-link">
                         <span class="pcoded-micon">
                             <i class="feather icon-sidebar"></i>
                         </span>
@@ -96,7 +104,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.laporan.pensiun') }}" class="nav-link">
                         <span class="pcoded-micon">
                             <i class="feather icon-sidebar"></i>
                         </span>
@@ -104,7 +112,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.laporan.pangkat') }}" class="nav-link">
                         <span class="pcoded-micon">
                             <i class="feather icon-sidebar"></i>
                         </span>
