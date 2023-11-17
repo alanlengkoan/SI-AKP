@@ -50,6 +50,12 @@ Breadcrumbs::for('admin.gapok.gapok', function (BreadcrumbTrail $trail) {
     $trail->push('Pendidikan', route('admin.gapok.gapok'));
 });
 
+Breadcrumbs::for('admin.cuti.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+
+    $trail->push('Cuti', route('admin.cuti.index'));
+});
+
 Breadcrumbs::for('admin.pegawai.pegawai', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
 

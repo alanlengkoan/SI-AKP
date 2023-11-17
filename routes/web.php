@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AgamaController;
+use App\Http\Controllers\admin\CutiController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\GapokController;
 use App\Http\Controllers\admin\JabatanController;
@@ -105,6 +106,16 @@ Route::group(['middleware' => ['session.auth', 'prevent.back.history']], functio
             Route::post('/del', 'del')->name('del');
         });
         // end:: gapok
+
+        // begin:: cuti
+        Route::controller(CutiController::class)->prefix('cuti')->as('cuti.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
+            Route::post('/show', 'show')->name('show');
+            Route::post('/save', 'save')->name('save');
+            Route::post('/del', 'del')->name('del');
+        });
+        // end:: cuti
 
         // begin:: pegawai
         Route::controller(PegawaiController::class)->prefix('pegawai')->as('pegawai.')->group(function () {

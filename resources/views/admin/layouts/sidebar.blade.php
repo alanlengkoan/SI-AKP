@@ -66,6 +66,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('admin.cuti.index') }}" class="nav-link">
+                        <span class="pcoded-micon">
+                            <i class="feather icon-sidebar"></i>
+                        </span>
+                        <span class="pcoded-mtext">Cuti</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('admin.pegawai.pegawai') }}" class="nav-link">
                         <span class="pcoded-micon">
                             <i class="feather icon-sidebar"></i>

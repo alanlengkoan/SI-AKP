@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-striped table-bordered" id="tabel-pegawai_pangkat-dt" style="width: 100%;">
+                <table class="table table-striped table-bordered" id="tabel-cuti-dt" style="width: 100%;">
                 </table>
             </div>
         </div>
@@ -36,9 +36,9 @@
             <div class="modal-header">
                 <h4 class="modal-title"><span id="judul-add-upd"></span> <?= $title ?></h4>
             </div>
-            <form id="form-add-upd" action="{{ route('admin.pegawai.pangkat.save') }}" method="POST">
+            <form id="form-add-upd" action="{{ route('admin.cuti.save') }}" method="POST">
                 <!-- begin:: id -->
-                <input type="hidden" name="id_pegawai_pangkat" id="id_pegawai_pangkat" />
+                <input type="hidden" name="id_cuti" id="id_cuti" />
                 <!-- end:: id -->
 
                 <div class="modal-body">
@@ -57,18 +57,30 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Pangkat&nbsp;*</label>
+                            <label class="col-sm-3 col-form-label">Tipe Cuti&nbsp;*</label>
                             <div class="col-sm-9">
-                                <select name="id_pangkat" id="id_pangkat">
-                                    <option value=""></option>
+                                <select class="form-control" name="tipe_cuti" id="tipe_cuti">
+                                    <option value="">- Pilih -</option>
+                                    <option value="cuti_khusus">Cuti Khusus</option>
+                                    <option value="cuti_tahunan">Cuti Tahunan</option>
+                                    <option value="cuti_bersama">Cuti Bersama</option>
+                                    <option value="cuti_menikah">Cuti Menikah</option>
+                                    <option value="cuti_sakit">Cu\ti Sakit</option>
                                 </select>
                                 <span class="errorInput"></span>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Tanggal Mulai Tugas&nbsp;*</label>
+                            <label class="col-sm-3 col-form-label">Tanggal Mulai&nbsp;*</label>
                             <div class="col-sm-9">
-                                <input type="date" class="form-control" name="tmt" id="tmt" />
+                                <input type="date" class="form-control" name="tgl_mulai" id="tgl_mulai" />
+                                <span class="errorInput"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Tanggal Selesai&nbsp;*</label>
+                            <div class="col-sm-9">
+                                <input type="date" class="form-control" name="tgl_selesai" id="tgl_selesai" />
                                 <span class="errorInput"></span>
                             </div>
                         </div>
@@ -99,7 +111,7 @@
     var table;
 
     let untukTabel = function() {
-        table = $('#tabel-pegawai_pangkat-dt').DataTable({
+        table = $('#tabel-cuti-dt').DataTable({
             serverSide: true,
             responsive: true,
             processing: true,
@@ -109,25 +121,34 @@
                 emptyTable: "Tak ada data yang tersedia pada tabel ini.",
                 processing: "Data sedang diproses...",
             },
-            ajax: "{{ route('admin.pegawai.pangkat.get_data_dt') }}",
+            ajax: "{{ route('admin.cuti.get_data_dt') }}",
             columns: [{
                     title: 'No.',
                     data: 'DT_RowIndex',
                     class: 'text-center'
                 },
                 {
+                    title: 'NIP',
+                    data: 'to_pegawai.nip',
+                    class: 'text-center'
+                },
+                {
                     title: 'Pegawai',
-                    data: 'pegawai',
+                    data: 'to_pegawai.to_users.nama',
                     class: 'text-center'
                 },
                 {
-                    title: 'Pangkat',
-                    data: 'pangkat',
+                    title: 'Tipe Cuti',
+                    data: 'tipe_cuti',
                     class: 'text-center'
                 },
                 {
-                    title: 'Tgl Mulai Tugas',
-                    data: 'tmt',
+                    title: 'Mulai',
+                    data: 'tgl_mulai',
+                    class: 'text-center'
+                }, {
+                    title: 'Selesai',
+                    data: 'tgl_selesai',
                     class: 'text-center'
                 },
                 {
@@ -150,9 +171,7 @@
         $(document).on('submit', '#form-add-upd', function(e) {
             e.preventDefault();
 
-            $('#id_pegawai').attr('required', 'required').attr('data-parsley-error-message', 'Pegawai harus diisi.');
-            $('#id_pangkat').attr('required', 'required').attr('data-parsley-error-message', 'Pangkat harus diisi.');
-            $('#tmt').attr('required', 'required').attr('data-parsley-error-message', 'Tanggak Mulai Tugas harus diisi.');
+            $('#nama').attr('required', 'required');
 
             var parsleyConfig = {
                 errorsContainer: function(parsleyField) {
@@ -199,9 +218,7 @@
         $(document).on('click', '#add', function(e) {
             e.preventDefault();
             $('#judul-add-upd').text('Tambah');
-            $('#id_pegawai_pangkat').removeAttr('value');
-            $('#id_pegawai').val('').trigger('change');
-            $('#id_pangkat').val('').trigger('change');
+            $('#id_cuti').removeAttr('value');
 
             $('#form-add-upd').parsley().reset();
             $('#form-add-upd')[0].reset();
@@ -214,7 +231,7 @@
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: "{{ route('admin.pegawai.pangkat.show') }}",
+                url: "{{ route('admin.cuti.show') }}",
                 data: {
                     id: ini.data('id')
                 },
@@ -230,10 +247,12 @@
                     $('#form-loading').empty();
                     $('#form-show').removeAttr('style');
 
-                    $('#id_pegawai_pangkat').val(response.id_pegawai_pangkat);
+                    $('#id_cuti').val(response.id_cuti);
                     $('#id_pegawai').val(response.id_pegawai).trigger('change');
-                    $('#id_pangkat').val(response.id_pangkat).trigger('change');
-                    $('#tmt').val(response.tmt);
+                    $('#tipe_cuti').val(response.tipe_cuti).trigger('change');
+                    $('#tgl_mulai').val(response.tgl_mulai);
+                    $('#tgl_selesai').val(response.tgl_selesai);
+
 
                     ini.removeAttr('disabled');
                     ini.html('<i class="fa fa-edit"></i>&nbsp;Ubah');
@@ -256,7 +275,7 @@
                 if (del) {
                     $.ajax({
                         type: "post",
-                        url: "{{ route('admin.pegawai.pangkat.del') }}",
+                        url: "{{ route('admin.cuti.del') }}",
                         dataType: 'json',
                         data: {
                             id: ini.data('id'),
@@ -287,18 +306,6 @@
         $.get("{{ route('admin.pegawai.get_all') }}", function(response) {
             $("#id_pegawai").select2({
                 placeholder: "Pilih Pegawai",
-                dropdownParent: $('#modal-add-upd'),
-                width: '100%',
-                allowClear: true,
-                data: response,
-            });
-        }, 'json');
-    }();
-
-    let untukSelectPangkat = function() {
-        $.get("{{ route('admin.pangkat.get_all') }}", function(response) {
-            $("#id_pangkat").select2({
-                placeholder: "Pilih Pangkat",
                 dropdownParent: $('#modal-add-upd'),
                 width: '100%',
                 allowClear: true,

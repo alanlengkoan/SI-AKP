@@ -22,7 +22,6 @@ class Pegawai extends Model
         'id_pendidikan',
         'nip',
         'tmt',
-        'nama',
         'kelamin',
         'tmp_lahir',
         'tgl_lahir',
