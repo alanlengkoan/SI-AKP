@@ -29,6 +29,9 @@ class CutiController extends Controller
 
         return DataTables::of($data)
             ->addIndexColumn()
+            ->addColumn('tipe_cuti', function ($row) {
+                return ucfirst(str_replace('_', ' ', $row->tipe_cuti));
+            })
             ->addColumn('action', function ($row) {
                 return '
                     <button type="button" id="upd" data-id="' . my_encrypt($row->id_cuti) . '" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-add-upd" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit"></i>&nbsp;<span>Ubah</span></button>&nbsp;
